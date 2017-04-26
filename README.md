@@ -1,0 +1,2 @@
+# booksManagementSystem
+基于Qt与MYSQL的图书管理系统

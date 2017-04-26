@@ -1,0 +1,51 @@
+CREATE SCHEMA `book_manage` ;  
+use book_manage;  
+set autocommit=0;  
+  
+create table `manager`  
+(  
+`username` varchar(20),  
+`password` varchar(20) not null,  
+primary key(`username`)  
+);  
+  
+create table `user`  
+(  
+`username` varchar(20) not null,  
+`password` varchar(20) not null,  
+primary key (`username`)  
+);  
+  
+create table `book`  
+(  
+`book_id` char(5),     
+`name` varchar(20) not null,  
+`price` float(9,2) unsigned,  
+`number` int unsigned not null,  
+`storage_date` date,  
+`manage_name` char(20),  
+`publisher` varchar(15) not null,  
+`publish_year` year,  
+`type` varchar(10) not null,  
+primary key(`book_id`),  
+foreign key(`manage_name`) references `manager`(`username`)  
+);  
+  
+create table `book_author`  
+(  
+`book_id` char(5),  
+`author_name` varchar(20),  
+primary key(`author_name`,`book_id`),  
+foreign key(`book_id`) references `book`(`book_id`) on delete cascade on update cascade  
+);  
+  
+create table `loan`  
+(  
+`username` char(20),  
+`book_id` char(5),  
+`loan_date` date,  
+`loan_number` int unsigned,  
+primary key(`username`,`book_id`,`loan_number`),  
+foreign key(`username`) references `user`(`username`),  
+foreign key(`book_id`) references `book`(`book_id`)  
+);  
